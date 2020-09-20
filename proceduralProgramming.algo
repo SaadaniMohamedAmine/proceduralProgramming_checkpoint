@@ -1,0 +1,95 @@
+//procedure for reading arrays for vectors
+PROCEDURE read_vectors(v1,v2)
+VAR
+    i,j:INTEGER;
+    v1:ARRAY_OF float[3];
+    v2:ARRAY_OF float[3];
+BEGIN
+    FOR 0 FROM 0 TO 2   DO
+        read(v1[i]);
+    END_FOR
+    FOR j FROM 0 TO 2  DO
+        read(v2[i]);
+    END_FOR
+END
+//Procedure for calculating the dot-product
+PROCEDURE dot_product(v1,v2)
+VAR
+   v1:ARRAY_OF INTEGER[3];
+   v2:ARRAY_OF INTEGER[3];
+   i,j:INTEGER;
+   ps:INTEGER;
+BEGIN
+   p:=0;
+   FOR i FROM 0 TO 3 DO
+      FOR j FROM 0 TO 3 DO
+          IF (i=j) THEN
+              ps:=ps+v1[i]*v2[j];
+          END_IF
+      END_FOR
+   END_FOR
+   IF (ps=0) THEN
+        write ("The two vector are orthogonals and their dot product is nul");
+   ELSE
+       write("The two vectors are not orthogonals and their dot product is :"+ps);
+   END_IF
+END
+//Main algorithm
+ALGORITHM dot_product_of_vectors
+VAR
+    v1,v2:ARRAY-of-INTEGERS[3];
+BEGIN
+    //read the two vectors
+    read_vectors(v1,v2);
+    //calculate the dot_product
+    //this is a task wish work by passing paramet in mode "Pass By Value"
+    dot_product(v1,v2);
+END
+
+
+
+
+//with functions 
+PROCEDURE read_vectors(v1,v2)
+VAR
+    i,j:INTEGER;
+    v1:ARRAY_OF float[3];
+    v2:ARRAY_OF float[3];
+BEGIN
+    FOR 0 FROM 0 TO 2   DO
+        read(v1[i]);
+    END_FOR
+    FOR j FROM 0 TO 2  DO
+        read(v2[i]);
+    END_FOR
+END
+FUNCTION dot_product_vectors(var v1,v2) : float
+VAR
+   v1,v2: ARRAY_OF float[3];
+   i,j:INTEGER;
+   ps:INTEGER;
+BEGIN
+     p:=0;
+   FOR i FROM 0 TO 3 DO
+      FOR j FROM 0 TO 3 DO
+          IF (i=j) THEN
+              ps:=ps+v1[i]*v2[j];
+          END_IF
+      END_FOR
+   END_FOR
+    RETURN ps;
+END
+ALGORITHM dot_product_of_vectors
+VAR
+    v1,v2:ARRAY-of-INTEGERS[3];
+BEGIN
+    //read the two vectors
+    read_vectors(v1,v2);
+    //calculate the dot_product
+     dot_product_vectors(var v1,v2); //returns ps and the pass mode for parameters is the "Pass by reference with keyword "var"
+    IF (ps=0) THEN
+        write("The two vectors are orthogonals and their dot product is 0");
+    ELSE
+        write("The two vectors are not orthogonals and their dot product is: ",ps);
+    END_IF
+END
